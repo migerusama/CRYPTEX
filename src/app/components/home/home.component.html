@@ -116,8 +116,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let coin of coinList.slice(0,max); let i = index"
-                    routerLink="trade/{{coin.symbol.toUpperCase()}}">
+                <tr *ngFor="let coin of coinList.slice(0,max); let i = index" routerLink="trade/{{coin.id}}">
                     <td class="ps-3 w-25 border-end">
                         <div class="row ">
                             <img src="{{coin.image}}" alt="" class="img-fluid align-middle" style="width: 20%;">
