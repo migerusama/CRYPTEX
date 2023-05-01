@@ -1,0 +1,145 @@
+<div class="container py-3">
+    <div class="row justify-content-center gx-3 ">
+        <div class="col">
+            <div class="card bg-light-black text-white">
+                <div class="card-body">
+                    <h5 class="card-title">TRENDING COINS</h5>
+                    <hr />
+                    <table class="table table-dark text-start">
+                        <tbody>
+                            <tr *ngFor="let coin of trendingCoins.slice(0,3); let i = index">
+                                <td>
+                                    <img src="{{ coin.item.thumb }}" alt="" class="float-start me-3" />
+                                    {{ coin.item.symbol }}
+                                </td>
+                                <td>{{ priceFixed(coin.item.price_btc) }} $</td>
+                                <td>{{ coin.item.market_cap_rank }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light-black text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Top 3</h5>
+                    <hr />
+                    <table class="table text-white text-start">
+                        <tbody>
+                            <tr *ngFor="let coin of coinsByPrice.slice(0,3); let i = index">
+                                <td class="w-25 align-middle">
+                                    <img src="{{coin.image}}" alt="" class="img-fluid w-100">
+                                </td>
+                                <td class="align-middle">{{coin.symbol.toUpperCase()}}</td>
+                                <td class="align-middle">${{coin.current_price}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light-black text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Top Market Cap</h5>
+                    <hr>
+                    <table class="table text-white text-start">
+                        <tbody>
+                            <tr *ngFor="let coin of coinsByMarketCap.slice(0,3); let i = index">
+                                <td class="w-25 align-middle">
+                                    <img src="{{coin.image}}" alt="" class="img-fluid w-100">
+                                </td>
+                                <td class="align-middle">{{coin.symbol.toUpperCase()}}</td>
+                                <td class="align-middle">${{abbreviateNumber(coin.market_cap)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light-black text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Top Winners</h5>
+                    <hr>
+                    <table class="table text-white text-start">
+                        <tbody>
+                            <tr *ngFor="let coin of coinsBy24hChangeAsc.slice(0,3); let i = index">
+                                <td class="w-25 align-middle">
+                                    <img src="{{coin.image}}" alt="" class="img-fluid w-100">
+                                </td>
+                                <td class="align-middle">{{coin.symbol.toUpperCase()}}</td>
+                                <td [ngStyle]="{'color': changeColor(coin.price_change_percentage_24h)}"
+                                    class="align-middle">
+                                    {{coin.price_change_percentage_24h.toFixed(2)}}%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light-black text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Top Losers</h5>
+                    <hr>
+                    <table class="table text-white text-start">
+                        <tbody>
+                            <tr *ngFor="let coin of coinsBy24hChangeDesc.slice(0,3); let i = index">
+                                <td class="w-25 align-middle">
+                                    <img src="{{coin.image}}" alt="" class="img-fluid w-100">
+                                </td>
+                                <td class="align-middle">{{coin.symbol.toUpperCase()}}</td>
+                                <td [ngStyle]="{'color': changeColor(coin.price_change_percentage_24h)}"
+                                    class="align-middle">
+                                    {{coin.price_change_percentage_24h.toFixed(2)}}%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row mt-5 ">
+        <table class="table bg-black text-white hoverable">
+            <thead class="bg-light-black">
+                <tr class="no-hover">
+                    <th scope="col" class="ps-3 border-end">Coin</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col" class="text-end">24h</th>
+                    <th scope="col" class="text-end">Volumen</th>
+                    <th scope="col" class="text-end">Cap. de mercado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let coin of coinList.slice(0,max); let i = index"
+                    routerLink="trade/{{coin.symbol.toUpperCase()}}">
+                    <td class="ps-3 w-25 border-end">
+                        <div class="row ">
+                            <img src="{{coin.image}}" alt="" class="img-fluid align-middle" style="width: 20%;">
+                            <p class="col align-middle">{{coin.symbol.toUpperCase()}}
+                                <span class="text-secondary">{{coin.name}}</span>
+                            </p>
+                        </div>
+                    </td>
+                    <td class="align-middle">$ {{coin.current_price}}</td>
+                    <td [ngStyle]="{'color': changeColor(coin.price_change_percentage_24h)}"
+                        class="text-end align-middle">
+                        {{coin.price_change_percentage_24h.toFixed(2)}}%
+                    </td>
+                    <td class="text-end align-middle">${{abbreviateNumber(coin.total_volume)}}</td>
+                    <td class="text-end align-middle">${{abbreviateNumber(coin.market_cap)}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center ">
+            <button class="w-25 btn btn-dark btn-outline-warning" (click)="updateMax()">
+                Mostrar más
+            </button>
+        </div>
+    </div>
+</div>
