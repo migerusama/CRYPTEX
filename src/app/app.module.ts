@@ -11,6 +11,8 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CoinComponent } from './components/coin/coin.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { RegisterComponent } from './components/register/register.component';
+import { MarketComponent } from './components/market/market.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HighchartsChartModule } from 'highcharts-angular';
     HomeComponent,
     ProfileComponent,
     LoginComponent,
-    CoinComponent
+    CoinComponent,
+    RegisterComponent,
+    MarketComponent
   ],
   imports: [
     BrowserModule,
