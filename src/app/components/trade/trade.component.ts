@@ -7,11 +7,11 @@ import * as Highcharts from 'highcharts/highstock';
 import darkUnica from 'highcharts/themes/dark-unica';
 
 @Component({
-  selector: 'app-coin',
-  templateUrl: './coin.component.html',
-  styleUrls: ['./coin.component.css']
+  selector: 'app-trade',
+  templateUrl: './trade.component.html',
+  styleUrls: ['./trade.component.css']
 })
-export class CoinComponent implements OnInit {
+export class TradeComponent implements OnInit {
   coin: string = '';
 
   constructor(private coinSrv: CoinService, private route: ActivatedRoute) { }

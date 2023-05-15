@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
     <div class="container-fluid">
         <a class="navbar-brand" routerLink="">CRYPTEX</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -8,19 +8,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="market">Market</a>
+                    <a class="nav-link" routerLink="/market">Market</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="contact">Contact Us</a>
+                    <a class="nav-link" routerLink="/contact">Contact Us</a>
                 </li>
             </ul>
-            <!-- <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> -->
             <div>
-                <button class="btn btn-dark" routerLink="login">Log In</button>
-                <button class="btn btn-dark btn-outline-warning" routerLink="register">Register</button>
+                <button class="btn btn-dark btn-outline-warning me-2" (click)="changeLanguage()">{{'Change language' | translate}}</button>
+                <button class="btn btn-dark btn-outline-warning me-2" routerLink="/login" *ngIf="!login">Log In</button>
+                <button class="btn btn-warning btn-outline-dark" routerLink="/register" *ngIf="!login">Register</button>
+                <button class="btn btn-dark btn-outline-warning" (click)="logout()" *ngIf="login">Log Out</button>
             </div>
         </div>
     </div>

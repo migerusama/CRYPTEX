@@ -1,0 +1,223 @@
+<app-navbar></app-navbar>
+<div class="bg-top">
+    <div class="container py-5 text-white ">
+        <div class="row mb-5 pb-5 align-items-center">
+            <div class="col-5">
+                <div class="mb-5">
+                    <h2 class="fs-1">Buy, trade, and hold 350+ cryptocurrencies on Cryptex</h2>
+                </div>
+                <div class="mt-4">
+                    <button class="btn btn-dark btn-outline-warning w-100 py-2">Sign Up with Email</button>
+                    <div class="row">
+                        <div class="col">
+                            <hr>
+                        </div>
+                        <div class="col-1 text-center">or</div>
+                        <div class="col">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col">
+                            <button class="btn btn-dark w-100 py-2"><i class="bi bi-google col-1"></i> Google</button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-dark w-100 py-2"><i class="bi bi-apple col-1"></i> Apple</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <img src="../../../assets/foreground-image-dark.png" alt="" class="img-fluid">
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col">
+                <h3>$38 billion </h3>
+                24h trading volume on Binance exchange
+            </div>
+            <div class="col">
+                <h3>350+</h3>
+                Cryptocurrencies listed
+            </div>
+            <div class="col">
+                <h3>120 million</h3>
+                Registered users
+            </div>
+            <div class="col">
+                <h3>&lt;0.10%</h3>
+                Lowest transaction fees
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-top">
+    <div class="rounded-top-3 bg-bottom">
+        <div class="container py-5 text-white">
+            <div class="my-5 py-5">
+                <h2>Popular cryptocurrencies</h2>
+                <table class="table bg-black text-white hoverable my-4">
+                    <thead class="bg-light-black ">
+                        <tr class="no-hover">
+                            <th scope="col" class="ps-3">Name</th>
+                            <th scope="col" class="text-end">Last Price</th>
+                            <th scope="col" class="text-end">24h Change</th>
+                            <th scope="col" class="text-end">Market cap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let coin of coinList.slice(0,5); let i = index" routerLink="trade/{{coin.id}}">
+                            <td class="ps-3 w-25">
+                                <div class="row ">
+                                    <img src="{{coin.image}}" alt="" class="img-fluid align-middle" style="width: 20%;">
+                                    <p class="col align-middle">{{coin.symbol.toUpperCase()}}
+                                        <span class="text-secondary">{{coin.name}}</span>
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="align-middle text-end">{{coin.current_price}} $</td>
+                            <td class="align-middle text-end"
+                                [ngStyle]="{'color': changeColor(coin.price_change_percentage_24h)}">
+                                {{coin.price_change_percentage_24h.toFixed(2)}}%
+                            </td>
+                            <td class="text-end align-middle">${{abbreviateNumber(coin.market_cap)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="row my-5 py-5">
+                <div class="col">
+                    <div class="mb-5 pb-4">
+                        <h3 class="mt-5">Build your crypto portfolio</h3>
+                        <p class="text-secondary">Start your first trade with these easy steps.</p>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-2">
+                            <img src="../../../assets/verify.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="col">
+                            <h5>Verify your identity</h5>
+                            <p class="text-secondary">Complete the identity verification process to secure your account
+                                and transactions.</p>
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-2">
+                            <img src="../../../assets/fund.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="col">
+                            <h5>Fund your account</h5>
+                            <p class="text-secondary">
+                                Add funds to your crypto account to start trading crypto.
+                                You can add funds with a variety of payment methods.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-2">
+                            <img src="../../../assets/buy-sell.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="col">
+                            <h5>Start trading</h5>
+                            <p class="text-secondary">
+                                You're good to go! Buy/sell crypto, set up recurring buys for your investments,
+                                and discover what Cryptex has to offer.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-warning w-25" routerLink="register">Get Started</button>
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <img src="../../../assets/movil1.png" alt="">
+                </div>
+            </div>
+            <hr>
+            <div class="my-5 py-5">
+                <h3>Explore endless possibilities with Cryptex</h3>
+                <div class="row mt-5">
+                    <div class="col">
+                        <div class="card bg-dark-grey py-3 h-100" style="height: 600px;">
+                            <div class="d-flex flex-column justify-content-between">
+                                <img src="../../../assets/nfts-no-bg.png" class="card-img-top" alt="...">
+                                <br><br><br><br>
+                                <div class="card-body mt-4">
+                                    <h4 class="card-title fs-2">Dive into the world of NFTs</h4>
+                                    <p class="card-text">Open rare Mystery Boxes, explore IGOs, Fan Tokens,
+                                        and more with Cryptex NFT</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col" style="height: 600px;">
+                        <div class="card bg-dark-grey py-3 h-100">
+                            <div class="card-body">
+                                <h4 class="card-title fs-2">Grow your business with Cryptex Pay</h4>
+                                <p class="card-text">Reach more customers as you pay and get paid in crypto with our
+                                    borderless payment technology on Cryptex Pay & Cryptex Marketplace</p>
+                            </div>
+                            <img src="../../../assets/cryptex-pay-no-bg.png" class="card-img-bottom" alt="...">
+                        </div>
+                    </div>
+                    <div class="col" style="height: 600px;">
+                        <div class="card bg-dark-grey py-3 h-100 ">
+                            <img src="../../../assets/cryptex-earn-no-bg.png" class="card-img-top" alt="...">
+                            <br><br><br><br><br>
+                            <div class="card-body mt-5">
+                                <h4 class="card-title fs-2">Cryptex Earn</h4>
+                                <p class="card-text ">Hold your crypto funds and start earning.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-warning w-25 mt-4">Explore Now</button>
+            </div>
+            <hr>
+            <div class="my-5 py-5">
+                <h2>Need help?</h2>
+                <div class="row">
+                    <div class="col row my-4">
+                        <div class="col-2">
+                            <img src="../../../assets/verify.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="col">
+                            <h5>24/7 Chat Support</h5>
+                            <p class="text-secondary">Get 24/7 chat support with our friendly customer service
+                                agents at your service</p>
+                        </div>
+                    </div>
+                    <div class="col row my-4">
+                        <div class="col-2">
+                            <img src="../../../assets/verify.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="col">
+                            <h5>FAQs</h5>
+                            <p class="text-secondary">View FAQs for detailed instructions on specific features.</p>
+                        </div>
+                    </div>
+                    <div class="col row my-4">
+                        <div class="col-2">
+                            <img src="../../../assets/verify.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="col">
+                            <h5>Blog</h5>
+                            <p class="text-secondary">Stay up to date with the latest stories and commentary.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+        </div>
+    </div>
+</div>
+<div class="mb-5 py-5 bg-dark-grey text-white">
+    <div class="d-flex justify-content-center flex-wrap">
+        <h1 class="w-100 text-center mb-4">Start earning today</h1>
+        <button class="btn btn-warning" routerLink="register">Sign Up Now</button>
+    </div>
+</div>
+<app-footer></app-footer>

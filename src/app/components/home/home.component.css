@@ -1,0 +1,25 @@
+.bg-top{
+    background-color: rgb(10,10,10);
+}
+.bg-bottom{
+    background-color: black;
+}
+.bg-dark-grey{
+    background-color: rgb(10,10,10);
+}
+.rounded-top-3 {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+.card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    border-color: yellow;
+}
+.bg-light-black{
+    background-color: rgb(15, 15, 15);
+}
+.hoverable tr:not(.no-hover):hover{
+    background-color:rgb(10, 10, 10);
+    border-color: yellow;
+}
