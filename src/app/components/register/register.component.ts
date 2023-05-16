@@ -37,5 +37,17 @@ export class RegisterComponent {
       })
   }
 
-
+  registerWithGoogle() {
+    this.authSrv.loginWithGoogle()
+      .then(res => {
+        this.router.navigate(['/profile'])
+      })
+      .catch(error => {
+        const errorCode: string = error.code || error.message;
+        const errorMessage: string = authErrorMessages[errorCode] || authErrorMessages.default;
+        this.toastrSrv.error(errorMessage, 'Error', {
+          positionClass: 'toast-bottom-right',
+        });
+      })
+  }
 }

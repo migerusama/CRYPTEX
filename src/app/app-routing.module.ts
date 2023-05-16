@@ -6,15 +6,18 @@ import { TradeComponent } from './components/trade/trade.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MarketComponent } from './components/market/market.component';
-import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
+import { InfoComponent } from './components/info/info.component';
+import { AuthGuardLoggedInService } from './services/guard/auth-guard-logged-in.service';
+import { AuthGuardNotLoggedInService } from './services/guard/auth-guard-not-logged-in.service';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'market', component: MarketComponent },
-  { path: 'profile', component: ProfileComponent, ...canActivate(() => redirectUnauthorizedTo('register')) },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardLoggedInService] },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuardNotLoggedInService] },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthGuardNotLoggedInService] },
   { path: 'trade/:coin', component: TradeComponent },
+  { path: 'info/:coin', component: InfoComponent },
   { path: '**', redirectTo: '' },
 ];
 

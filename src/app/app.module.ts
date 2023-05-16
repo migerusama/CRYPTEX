@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { InfoComponent } from './components/info/info.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -35,7 +36,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     TradeComponent,
     RegisterComponent,
-    MarketComponent
+    MarketComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

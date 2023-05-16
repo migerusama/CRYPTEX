@@ -1,0 +1,163 @@
+<app-navbar></app-navbar>
+<div class="container text-white mt-5" *ngIf="coin">
+    <div class="row gx-5">
+        <div class="col-12">
+            <div class="d-flex flex-wrap ">
+                <img src="{{coin.image.small}}" alt="" class="img-fluid me-3">
+                <h1>{{coin.name}} Price <span class="text-secondary fs-2">({{coin.symbol.toUpperCase()}})</span></h1>
+            </div>
+            <div class="row mt-3">
+                <h3>
+                    $ {{coin.market_data.current_price.usd}}
+                    <span class="fs-5" [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_24h)}">
+                        {{coin.market_data.price_change_percentage_24h.toFixed(2)}} %
+                    </span>
+                    <span class="text-secondary" style="font-size: 1rem;">(1D)</span>
+                </h3>
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="my-5">
+                <table class="table bg-black text-white">
+                    <thead class="bg-dark-grey text-end">
+                        <tr>
+                            <th class="text-start">Change</th>
+                            <th>Amount</th>
+                            <th>%</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-end">
+                        <tr>
+                            <td class="text-start">Today</td>
+                            <td [ngStyle]="{'color': changeColor(coin.market_data.price_change_24h)}">
+                                {{coin.market_data.price_change_24h}} $</td>
+                            <td [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_24h)}">
+                                {{coin.market_data.price_change_percentage_24h}}%</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">30 Days</td>
+                            <td [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_30d)}">
+                                {{changePorcentageToPrice(coin.market_data.price_change_percentage_30d)}} $</td>
+                            <td [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_30d)}">
+                                {{coin.market_data.price_change_percentage_30d}}%</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">60 Days</td>
+                            <td [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_60d)}">
+                                {{changePorcentageToPrice(coin.market_data.price_change_percentage_60d)}} $</td>
+                            <td [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_60d)}">
+                                {{coin.market_data.price_change_percentage_60d}}%</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">1 Year</td>
+                            <td [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_1y)}">
+                                {{changePorcentageToPrice(coin.market_data.price_change_percentage_1y)}} $</td>
+                            <td [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_1y)}">
+                                {{coin.market_data.price_change_percentage_1y}}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="my-5">
+                <h3 class="text-white">{{coin.symbol.toUpperCase()}} Price Information</h3>
+                <p class=" text-secondary">24h Low & High</p>
+                <p>
+                    Low: {{coin.market_data.low_24h.usd}} $
+                    <i class="bi bi-dash-lg text-danger"></i>
+                    <i class="bi bi-dash-lg text-success"></i>
+                    High: {{coin.market_data.high_24h.usd}} $
+                </p>
+            </div>
+            <div class="row text-secondary">
+                <div class="col-3">
+                    <p>All Time High</p>
+                    <p class="text-white">{{coin.market_data.ath.usd}} $</p>
+                </div>
+                <div class="col-3">
+                    <p>Price Change (1h)</p>
+                    <p [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_1h_in_currency.usd)}">
+                        {{coin.market_data.price_change_percentage_1h_in_currency.usd}}%
+                    </p>
+                </div>
+                <div class="col-3">
+                    <p>Price Change (24h)</p>
+                    <p [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_24h_in_currency.usd)}">
+                        {{coin.market_data.price_change_percentage_24h_in_currency.usd}}%
+                    </p>
+                </div>
+                <div class="col-3">
+                    <p>Price Change (7d)</p>
+                    <p [ngStyle]="{'color': changeColor(coin.market_data.price_change_percentage_7d_in_currency.usd)}">
+                        {{coin.market_data.price_change_percentage_7d_in_currency.usd}}%
+                    </p>
+                </div>
+            </div>
+            <div class="my-5">
+                <h3>{{coin.symbol.toUpperCase()}} Market Information</h3>
+                <div class="row text-secondary">
+                    <div class="col-3">
+                        <p>Popularity</p>
+                        <p class="text-white"># {{coin.market_data.market_cap_rank}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p>Market Cap</p>
+                        <p class="text-white">{{abbreviateNumber(coin.market_data.market_cap.usd)}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p> Volume (24h)</p>
+                        <p class="text-white">{{abbreviateNumber(coin.market_data.total_volume.usd)}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p>Circulation Supply</p>
+                        <p class="text-white">{{abbreviateNumber(coin.market_data.circulating_supply)}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="my-5">
+                <h3>About {{coin.id.toUpperCase()}}</h3>
+                <p [innerHTML]="coin.description.en"></p>
+            </div>
+            <div class="my-5">
+                <h3>{{coin.id.toUpperCase()}} Resources</h3>
+                <p><i class="bi bi-globe"></i><a href="{{coin.links.homepage[0]}}"
+                        class="text-decoration-none text-warning"> Official {{coin.id}} Website</a></p>
+            </div>
+
+        </div>
+        <div class="col-4 offset-1">
+            <div class="my-5">
+                <h2>{{coin.symbol.toUpperCase()}} Price calculator</h2>
+                <div class="input-group my-3">
+                    <input id="inputCoin" type="number" class="bg-black text-warning form-control"
+                        placeholder="{{coin.symbol.toUpperCase()}}" [(ngModel)]="inputCoin"
+                        (input)="calculatePrice(inputCoin,1)" min="0" step="0.01">
+                    <span class="input-group-text bg-dark text-white">{{coin.symbol.toUpperCase()}}</span>
+                </div>
+                <div class="input-group">
+                    <input type="number" class="bg-black text-warning form-control" placeholder="USD"
+                        [(ngModel)]="inputUsd" (input)="calculatePrice(inputUsd,2)" min="0" step="0.01">
+                    <span class="input-group-text bg-dark text-white">USD</span>
+                </div>
+            </div>
+            <div class="my-5">
+                <h3 class="card-title">TRENDING COINS</h3>
+                <hr />
+                <a href="" routerLink="/info/{{trendingCoin.item.id}}" *ngFor="let trendingCoin of trendingCoins" class="text-decoration-none text-white">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="{{ trendingCoin.item.large }}" alt="" class="img-fluid" />
+                        </div>
+                        <div class="col-7">
+                            <h5>{{trendingCoin.item.name}}</h5>
+                            <p>{{trendingCoin.item.symbol}}</p>
+                        </div>
+                        <div class="col text-end d-flex align-items-center">
+                            <p>{{priceFixed(trendingCoin.item.price_btc)}} $</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

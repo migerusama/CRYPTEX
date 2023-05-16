@@ -14,7 +14,10 @@ import darkUnica from 'highcharts/themes/dark-unica';
 export class TradeComponent implements OnInit {
   coin: string = '';
 
-  constructor(private coinSrv: CoinService, private route: ActivatedRoute) { }
+  constructor(
+    private coinSrv: CoinService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.coin = this.route.snapshot.params['coin']

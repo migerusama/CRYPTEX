@@ -9,6 +9,7 @@ import { TrendingSearchCoins } from 'src/app/models/trending/trending-search-coi
 import { Currency } from 'src/app/models/enum/currency.enum';
 import { SimpleCoinPrice } from 'src/app/models/coins/simple-coin-price.model';
 import { Coin } from 'src/app/models/coins/coin.model';
+import { InfoCoin } from 'src/app/models/coins/info-coin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,9 @@ export class CoinService implements ICoin {
     return this.http.get<any>(endpoint, option);
   }
 
-  getCoinById(id: number, option?: object): Observable<any> {
+  getCoinById(id: string, option?: object): Observable<InfoCoin> {
     let endpoint = `${this.apiUrl}/coins/${id}`;
-    return this.http.get<any>(endpoint, option);
+    return this.http.get<InfoCoin>(endpoint, option);
   }
 
   getCoinOHLC(id: string, currency: Currency, days: DaysInterval, option?: object): Observable<OHLC[]> {
