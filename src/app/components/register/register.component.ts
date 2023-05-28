@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { authErrorMessages } from 'src/shared/error-messages';
 import { Router } from '@angular/router';
+import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,8 @@ export class RegisterComponent {
   constructor(
     private router: Router,
     private authSrv: AuthService,
-    private toastrSrv: ToastrService
+    private toastrSrv: ToastrService,
+    private firestore: Firestore
   ) { }
 
   onSubmit() {
@@ -26,6 +28,7 @@ export class RegisterComponent {
     user.password = this.password;
     this.authSrv.register(user)
       .then(res => {
+        setDoc(doc(this.firestore, 'users', user.email), user)
         this.router.navigate(['/profile'])
       })
       .catch(error => {
@@ -40,9 +43,17 @@ export class RegisterComponent {
   registerWithGoogle() {
     this.authSrv.loginWithGoogle()
       .then(res => {
+        const user = new User()
+        user.email = res.user.email ?? ""
+        user.username = res.user.displayName ?? ""
+        if (res.user.email)
+          setDoc(doc(this.firestore, 'users', res.user.email), {...user})
+        else
+          setDoc(doc(this.firestore, 'users', res.user.uid), user)
         this.router.navigate(['/profile'])
       })
       .catch(error => {
+        console.error(error)
         const errorCode: string = error.code || error.message;
         const errorMessage: string = authErrorMessages[errorCode] || authErrorMessages.default;
         this.toastrSrv.error(errorMessage, 'Error', {

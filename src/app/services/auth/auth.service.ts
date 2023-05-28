@@ -6,7 +6,7 @@ import { User } from 'src/app/models/user/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  
+
   constructor(private auth: Auth) { }
 
   register(user: User) {
@@ -26,8 +26,10 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    console.log(this.auth.currentUser);
-    
     return this.auth.currentUser ? true : false
+  }
+
+  getCurrentUser() {
+    return this.auth.currentUser
   }
 }

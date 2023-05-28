@@ -1,9 +1,26 @@
+import { Wallet } from "./wallet.model"
+
 export class User {
+    username: string
     email: string
     password: string
+    birthdate: string
+    wallet: Wallet[]
+    totalMoney: number
 
-    constructor(email?: string, password?: string) {
+    constructor(
+        username?: string,
+        email?: string,
+        password?: string,
+        birthdate?: string,
+        wallet?: Wallet[],
+        totalMoney?: number
+    ) {
+        this.username = username || ''
         this.email = email || ''
         this.password = password || ''
+        this.birthdate = birthdate || ''
+        this.wallet = wallet || []
+        this.totalMoney = totalMoney || 0
     }
 }

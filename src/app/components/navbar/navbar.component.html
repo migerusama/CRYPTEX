@@ -15,10 +15,11 @@
                 </li>
             </ul>
             <div>
-                <button class="btn btn-dark btn-outline-warning me-2" (click)="changeLanguage()">{{'Change language' | translate}}</button>
-                <button class="btn btn-dark btn-outline-warning me-2" routerLink="/login" *ngIf="!login">Log In</button>
+                <button class="btn btn-outline-warning border-0 me-2" (click)="changeLanguage()"><i class="bi bi-translate"></i></button>
+                <button class="btn btn-outline-warning me-2" routerLink="/login" *ngIf="!login">Log In</button>
                 <button class="btn btn-warning btn-outline-dark" routerLink="/register" *ngIf="!login">Register</button>
-                <button class="btn btn-dark btn-outline-warning" (click)="logout()" *ngIf="login">Log Out</button>
+                <button class="btn btn-outline-warning me-2" routerLink="/profile" *ngIf="login"><i class="bi bi-person"></i></button>
+                <button class="btn btn-outline-warning" (click)="logout()" *ngIf="login">Log Out</button>
             </div>
         </div>
     </div>

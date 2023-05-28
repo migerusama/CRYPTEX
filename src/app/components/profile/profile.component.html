@@ -1,1 +1,62 @@
 <app-navbar></app-navbar>
+<div class="container my-5 text-white">
+    <div class="card bg-dark p-3">
+        <div class="row">
+            <div class="col-2">
+                <img src="assets/images/fund.png" alt="" class="img-fluid border rounded-circle p-1">
+            </div>
+            <div class="col row">
+                <div class="col row align-items-center pt-2">
+                    <div class="d-flex">
+                        <h3>USERNAME</h3>
+                        <a class="text-decoration-none text-white" routerLink="/edit-profile"><i class="bi bi-pencil-square ms-3 fs-4"></i></a>
+                    </div>
+                    <div>
+                        <h4 class="text-secondary">Estimated Balance</h4>
+                        <p class="fs-3">0.00000000 BTC <span class="text-secondary">≈ 0.00000000$</span></p>
+                    </div>
+                </div>
+                <div class="col-3 row me-3">
+                    <button class="btn btn-warning">Deposit</button>
+                    <button class="btn btn-outline-warning my-2">Withdraw</button>
+                    <button class="btn btn-outline-warning">Buy Crypto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-5 ms-3">
+        <h2>Wallet</h2>
+        <hr>
+        <div class="row mb-3">
+            <div class="col-3 offset-1 ps-4">
+                <p class="fs-3">Name</p>
+            </div>
+            <div class="col-3">
+                <p class="fs-3">Amount</p>
+            </div>
+            <div class="col-3">
+                <p class="fs-3">Price</p>
+            </div>
+        </div>
+        <div class="card bg-dark my-2 px-3" *ngFor="let coin of wallet">
+            <div class="row">
+                <div class="col-1">
+                    <img src="assets/images/fund.png" alt="" class="img-fluid">
+                </div>
+                <div class="col-3 d-flex align-items-center pt-3">
+                    <p class="fs-4">BTC <span class="fs-5 text-secondary">Bitcoin</span></p>
+                </div>
+                <div class="col-3 d-flex align-items-center pt-3">
+                    <p class="fs-4">0.25641357</p>
+                </div>
+                <div class="col-3 d-flex align-items-center pt-3">
+                    <p class="fs-4">0.25641357 $</p>
+                </div>
+                <div class="col-2 d-flex align-items-center ">
+                    <button class="btn btn-outline-warning w-100">Trade</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

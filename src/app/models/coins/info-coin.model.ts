@@ -177,5 +177,6 @@ export type InfoCoin = {
     }
     status_updates: Array<any>
     last_updated: string
+    tickers: Array<any>
   }
   

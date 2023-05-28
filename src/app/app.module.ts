@@ -14,6 +14,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { RegisterComponent } from './components/register/register.component';
 import { MarketComponent } from './components/market/market.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +23,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { InfoComponent } from './components/info/info.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -37,7 +40,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TradeComponent,
     RegisterComponent,
     MarketComponent,
-    InfoComponent
+    InfoComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HighchartsChartModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    // AngularFireModule.initializeApp(environment.firebase),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     TranslateModule.forRoot({

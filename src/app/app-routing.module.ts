@@ -9,11 +9,15 @@ import { MarketComponent } from './components/market/market.component';
 import { InfoComponent } from './components/info/info.component';
 import { AuthGuardLoggedInService } from './services/guard/auth-guard-logged-in.service';
 import { AuthGuardNotLoggedInService } from './services/guard/auth-guard-not-logged-in.service';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'market', component: MarketComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardLoggedInService] },
+  { path: 'profile', component: ProfileComponent},
+  { path: 'edit-profile', component: EditProfileComponent},
+  // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardLoggedInService] },
+  // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardLoggedInService] },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuardNotLoggedInService] },
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuardNotLoggedInService] },
   { path: 'trade/:coin', component: TradeComponent },

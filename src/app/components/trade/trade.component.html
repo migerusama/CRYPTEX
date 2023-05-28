@@ -1,24 +1,74 @@
 <app-navbar></app-navbar>
-<div class="row py-3">
-    <div class="col" id="chart"></div>
-    <div class="col-4 row ms-1 bg-light-black py-3">
-        <div class="col-12 text-center text-white">
-            <h1>{{coin.toUpperCase()}}/USD</h1>
-            <hr>
+<div class="container my-3 text-white">
+    <div class="row gx-2">
+        <div class="col-8">
+            <div class="h-100" id="chart"></div>
         </div>
-        <div class="col-12">
-            <div class="input-group my-3">
-                <input type="text" placeholder="Precio" class="form-control">
-                <span class="input-group-text" id="basic-addon2">USD</span>
-            </div>
-            <div class="input-group">
-                <input type="text" placeholder="Cantidad" class="form-control">
-                <span class="input-group-text" id="basic-addon2">BTC</span>
+        <div class="col-4" *ngIf="coin">
+            <div class="bg-light-black p-5">
+                <div class="text-center text-white">
+                    <h1>{{coin.id.toUpperCase()}}/USD</h1>
+                    <hr>
+                </div>
+                <div class="input-group my-3">
+                    <input type="text" placeholder="Precio" class="form-control">
+                    <span class="input-group-text" id="basic-addon2">USD</span>
+                </div>
+                <div class="input-group my-3">
+                    <input type="text" placeholder="Cantidad" class="form-control">
+                    <span class="input-group-text" id="basic-addon2">{{coin.symbol.toUpperCase()}}</span>
+                </div>
+                <div class="btn-group w-100 my-3" role="group">
+                    <button class="btn btn-dark btn-outline-success w-100 fs-3">BUY</button>
+                    <button class="btn btn-dark btn-outline-danger w-100 fs-3">SELL</button>
+                </div>
             </div>
         </div>
-        <div class="btn-group col-12 my-3" role="group">
-            <button class="btn btn-dark btn-outline-success w-100 fs-3">BUY</button>
-            <button class="btn btn-dark btn-outline-danger w-100 fs-3">SELL</button>
+    </div>
+    <hr>
+    <div *ngIf="coin">
+        <div class="row">
+            <div class="col-5 ">
+                <table class="table bg-black text-white text-center">
+                    <thead class="bg-dark border-warning">
+                        <tr>
+                            <th>Last</th>
+                            <th>Volume</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ticker of coin.tickers.slice(0,7)">
+                            <td>{{ticker.last}}</td>
+                            <td>{{ticker.volume.toFixed(2)}}</td>
+                            <td>{{ticker.timestamp | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <div class="my-5">
+                    <h3>{{coin!.symbol.toUpperCase()}} Market Information</h3>
+                    <div class="row text-secondary">
+                        <div class="col-3">
+                            <p>Popularity</p>
+                            <p class="text-white"># {{coin.market_data.market_cap_rank}}</p>
+                        </div>
+                        <div class="col-3">
+                            <p>Market Cap</p>
+                            <p class="text-white">{{abbreviateNumber(coin.market_data.market_cap.usd)}}</p>
+                        </div>
+                        <div class="col-3">
+                            <p> Volume (24h)</p>
+                            <p class="text-white">{{abbreviateNumber(coin.market_data.total_volume.usd)}}</p>
+                        </div>
+                        <div class="col-3">
+                            <p>Circulation Supply</p>
+                            <p class="text-white">{{abbreviateNumber(coin.market_data.circulating_supply)}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
