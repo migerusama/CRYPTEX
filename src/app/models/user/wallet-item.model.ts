@@ -1,4 +1,4 @@
-export class Wallet {
+export class WalletItem {
     coin: string
     amount: number
     

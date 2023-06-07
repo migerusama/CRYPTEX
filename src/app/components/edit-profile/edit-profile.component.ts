@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Firestore, collectionData, doc, docData } from '@angular/fire/firestore';
-import { collection } from 'firebase/firestore';
-import { map } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
-
+import { User as UserAuth } from 'firebase/auth';
+import { FirebaseStorageService } from 'src/app/services/firebase/firebase-storage.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -13,7 +11,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class EditProfileComponent implements OnInit {
 
-  user!: User
+  user: User = new User()
+  userAuth!: UserAuth
+  selectedImage: File | null = null;
 
   username = ""
   email = ""
@@ -33,13 +33,15 @@ export class EditProfileComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private firestore: Firestore
+    private fbStorageService: FirebaseStorageService,
+    // private fs: AngularFirestore,
+    // private storage: AngularFireStorage
   ) { }
 
   ngOnInit(): void {
-    const user = this.auth.getCurrentUser()
-    if (user && user.email) {
-      docData(doc(this.firestore, 'users', user.email)).subscribe((data) => {
+    this.userAuth = this.auth.getCurrentUser()!
+    if (this.userAuth && this.userAuth.email) {
+      this.fbStorageService.getDocByUser(this.userAuth.email).subscribe((data) => {
         this.user = data as User
       })
     }
@@ -53,6 +55,31 @@ export class EditProfileComponent implements OnInit {
     this.errors["repeatPassword"] = this.repeatPassword === ""
     this.errors["samePassword"] = this.newPassword !== this.repeatPassword
     this.errors["sameNewPassword"] = this.password === this.newPassword
+    // if (this.selectedImage) {
+    //   const filePath = `images/${this.userAuth.uid}`;
+    //   const fileRef = this.storage.ref(filePath);
+    //   const task = this.storage.upload(filePath, this.selectedImage);
+    //   task.snapshotChanges().pipe(
+    //     finalize(() => {
+    //       fileRef.getDownloadURL().subscribe(url => {
+    //         console.log('URL de descarga:', url);
+    //         // Aquí puedes realizar acciones adicionales con la URL, como guardarla en una base de datos
+    //         const userDoc = this.fs.collection('users').doc(this.userAuth.uid);
+    //         userDoc.set({ imageUrl: url }, { merge: true })
+    //           .then(() => {
+    //             console.log('URL de descarga guardada en Firestore');
+    //           })
+    //           .catch(error => {
+    //             console.error('Error al guardar la URL de descarga en Firestore', error);
+    //           });
+    //       });
+    //     })
+    //   ).subscribe();
+    // }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedImage = event.target.files[0];
   }
 
 } 

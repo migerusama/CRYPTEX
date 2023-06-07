@@ -3,17 +3,26 @@
     <div class="card bg-dark p-3">
         <div class="row">
             <div class="col-2">
-                <img src="assets/images/fund.png" alt="" class="img-fluid border rounded-circle p-1">
+                <div *ngIf="user.profilePic; else defaultImg">
+                    <img src="{{user.profilePic}}" alt="" class="img-fluid rounded-circle p-1 bg-warning">
+                </div>
+                <ng-template #defaultImg>
+                    <img src="assets/images/avatar.png" alt="" class="img-fluid rounded-circle p-1 bg-warning">
+                </ng-template>
             </div>
             <div class="col row">
                 <div class="col row align-items-center pt-2">
                     <div class="d-flex">
-                        <h3>USERNAME</h3>
-                        <a class="text-decoration-none text-white" routerLink="/edit-profile"><i class="bi bi-pencil-square ms-3 fs-4"></i></a>
+                        <h3>{{user.username}}</h3>
+                        <a class="text-decoration-none text-white" routerLink="/edit-profile">
+                            <i class="bi bi-pencil-square ms-3 fs-4"></i>
+                        </a>
                     </div>
                     <div>
                         <h4 class="text-secondary">Estimated Balance</h4>
-                        <p class="fs-3">0.00000000 BTC <span class="text-secondary">≈ 0.00000000$</span></p>
+                        <p class="fs-3">{{balanceToBTC()}} BTC
+                            <span class="text-secondary">≈ {{calculateBalance()}}$</span>
+                        </p>
                     </div>
                 </div>
                 <div class="col-3 row me-3">
@@ -41,22 +50,29 @@
         <div class="card bg-dark my-2 px-3" *ngFor="let coin of wallet">
             <div class="row">
                 <div class="col-1">
-                    <img src="assets/images/fund.png" alt="" class="img-fluid">
+                    <img src="{{coin.image}}" alt="" class="p-2 img-fluid">
                 </div>
                 <div class="col-3 d-flex align-items-center pt-3">
-                    <p class="fs-4">BTC <span class="fs-5 text-secondary">Bitcoin</span></p>
+                    <p class="fs-4">
+                        {{coin.symbol.toUpperCase()}} <span class="fs-5 text-secondary">{{coin.name}}</span>
+                    </p>
                 </div>
                 <div class="col-3 d-flex align-items-center pt-3">
-                    <p class="fs-4">0.25641357</p>
+                    <p class="fs-4">{{coin.amount}}</p>
                 </div>
                 <div class="col-3 d-flex align-items-center pt-3">
-                    <p class="fs-4">0.25641357 $</p>
+                    <p class="fs-4">{{coin.price}} $</p>
                 </div>
-                <div class="col-2 d-flex align-items-center ">
-                    <button class="btn btn-outline-warning w-100">Trade</button>
+                <div class="col-2 d-flex align-items-center">
+                    <button class="btn btn-outline-warning mx-1 border-0 fs-5" routerLink="/trade/{{coin.id}}">
+                        <i class="bi bi-graph-up"></i>
+                    </button>
+                    <button class="btn btn-outline-warning mx-1 border-0 fs-5" routerLink="/info/{{coin.id}}">
+                        <i class="bi bi-info-lg"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+<app-footer></app-footer>

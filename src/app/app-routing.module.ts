@@ -10,6 +10,7 @@ import { InfoComponent } from './components/info/info.component';
 import { AuthGuardLoggedInService } from './services/guard/auth-guard-logged-in.service';
 import { AuthGuardNotLoggedInService } from './services/guard/auth-guard-not-logged-in.service';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, canActivate: [AuthGuardNotLoggedInService] },
   { path: 'trade/:coin', component: TradeComponent },
   { path: 'info/:coin', component: InfoComponent },
+  { path: 'contact', component: ContactComponent },
   { path: '**', redirectTo: '' },
 ];
 

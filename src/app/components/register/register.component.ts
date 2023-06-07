@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { authErrorMessages } from 'src/shared/error-messages';
 import { Router } from '@angular/router';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { FirebaseStorageService } from 'src/app/services/firebase/firebase-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,7 @@ export class RegisterComponent {
     private router: Router,
     private authSrv: AuthService,
     private toastrSrv: ToastrService,
+    private fbStorageService: FirebaseStorageService,
     private firestore: Firestore
   ) { }
 
@@ -28,16 +30,17 @@ export class RegisterComponent {
     user.password = this.password;
     this.authSrv.register(user)
       .then(res => {
-        setDoc(doc(this.firestore, 'users', user.email), user)
+        this.fbStorageService.setUserDoc(user).catch(err => console.error(err))
+        // setDoc(doc(this.firestore, 'users', user.email), { ...user })
         this.router.navigate(['/profile'])
       })
-      .catch(error => {
+      /* .catch(error => {
         const errorCode: string = error.code || error.message;
         const errorMessage: string = authErrorMessages[errorCode] || authErrorMessages.default;
         this.toastrSrv.error(errorMessage, 'Error', {
           positionClass: 'toast-bottom-right',
         });
-      })
+      }) */
   }
 
   registerWithGoogle() {
@@ -46,10 +49,11 @@ export class RegisterComponent {
         const user = new User()
         user.email = res.user.email ?? ""
         user.username = res.user.displayName ?? ""
+        user.profilePic = res.user.photoURL ?? "assets/image/"
         if (res.user.email)
-          setDoc(doc(this.firestore, 'users', res.user.email), {...user})
+          setDoc(doc(this.firestore, 'users', res.user.email), { ...user })
         else
-          setDoc(doc(this.firestore, 'users', res.user.uid), user)
+          setDoc(doc(this.firestore, 'users', res.user.uid), { ...user })
         this.router.navigate(['/profile'])
       })
       .catch(error => {

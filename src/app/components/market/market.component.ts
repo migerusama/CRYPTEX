@@ -18,7 +18,10 @@ export class MarketComponent implements OnInit {
   coinsBy24hChangeDesc: Coin[] = [];
   btcPrice: number = 28366
   max: number = 10
-  constructor(private coinSrv: CoinService) { }
+  
+  constructor(
+    private coinSrv: CoinService
+  ) { }
 
   ngOnInit(): void {
     // this.coinSrv.getTrending().subscribe((data) => {

@@ -8,7 +8,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TradeComponent } from './components/trade/trade.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { RegisterComponent } from './components/register/register.component';
@@ -24,7 +24,13 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { InfoComponent } from './components/info/info.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { ContactComponent } from './components/contact/contact.component';
+// import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+// import { AngularFireStorage } from '@angular/fire/compat/storage';
+// import { AngularFireModule } from '@angular/fire/compat';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -41,7 +47,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegisterComponent,
     MarketComponent,
     InfoComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    SpinnerComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -50,9 +58,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     HighchartsChartModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    provideAuth(() => getAuth()),
     // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireStorageModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     TranslateModule.forRoot({
@@ -61,9 +71,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
