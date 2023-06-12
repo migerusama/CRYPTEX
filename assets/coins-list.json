@@ -1,0 +1,232 @@
+[
+  {
+    "id": "aave",
+    "symbol": "aave",
+    "name": "Aave"
+  },
+  {
+    "id": "algorand",
+    "symbol": "algo",
+    "name": "Algorand"
+  },
+  {
+    "id": "avalanche-2",
+    "symbol": "avax",
+    "name": "Avalanche"
+  },
+  {
+    "id": "axie-infinity",
+    "symbol": "axs",
+    "name": "Axie Infinity"
+  },
+  {
+    "id": "binance-usd",
+    "symbol": "busd",
+    "name": "Binance USD"
+  },
+  {
+    "id": "binancecoin",
+    "symbol": "bnb",
+    "name": "Binance Coin"
+  },
+  {
+    "id": "bitcoin",
+    "symbol": "btc",
+    "name": "Bitcoin"
+  },
+  {
+    "id": "bitcoin-cash",
+    "symbol": "bch",
+    "name": "Bitcoin Cash"
+  },
+  {
+    "id": "cardano",
+    "symbol": "ada",
+    "name": "Cardano"
+  },
+  {
+    "id": "chainlink",
+    "symbol": "link",
+    "name": "Chainlink"
+  },
+  {
+    "id": "cosmos",
+    "symbol": "atom",
+    "name": "Cosmos"
+  },
+  {
+    "id": "crypto-com-coin",
+    "symbol": "cro",
+    "name": "Crypto.com Coin"
+  },
+  {
+    "id": "celsius-degree-token",
+    "symbol": "cel",
+    "name": "Celsius Network"
+  },
+  {
+    "id": "dogecoin",
+    "symbol": "doge",
+    "name": "Dogecoin"
+  },
+  {
+    "id": "eos",
+    "symbol": "eos",
+    "name": "EOS"
+  },
+  {
+    "id": "ethereum",
+    "symbol": "eth",
+    "name": "Ethereum"
+  },
+  {
+    "id": "filecoin",
+    "symbol": "fil",
+    "name": "Filecoin"
+  },
+  {
+    "id": "ftx-token",
+    "symbol": "ftt",
+    "name": "FTX Token"
+  },
+  {
+    "id": "havven",
+    "symbol": "snx",
+    "name": "Synthetix Network Token"
+  },
+  {
+    "id": "iota",
+    "symbol": "miota",
+    "name": "IOTA"
+  },
+  {
+    "id": "internet-computer",
+    "symbol": "icp",
+    "name": "Internet Computer"
+  },
+  {
+    "id": "klaytn",
+    "symbol": "klay",
+    "name": "Klaytn"
+  },
+  {
+    "id": "litecoin",
+    "symbol": "ltc",
+    "name": "Litecoin"
+  },
+  {
+    "id": "maker",
+    "symbol": "mkr",
+    "name": "Maker"
+  },
+  {
+    "id": "matic-network",
+    "symbol": "matic",
+    "name": "Polygon"
+  },
+  {
+    "id": "monero",
+    "symbol": "xmr",
+    "name": "Monero"
+  },
+  {
+    "id": "neo",
+    "symbol": "neo",
+    "name": "NEO"
+  },
+  {
+    "id": "okb",
+    "symbol": "okb",
+    "name": "OKB"
+  },
+  {
+    "id": "pancakeswap-token",
+    "symbol": "cake",
+    "name": "PancakeSwap"
+  },
+  {
+    "id": "polkadot",
+    "symbol": "dot",
+    "name": "Polkadot"
+  },
+  {
+    "id": "quant-network",
+    "symbol": "qnt",
+    "name": "Quant"
+  },
+  {
+    "id": "shiba-inu",
+    "symbol": "shib",
+    "name": "Shiba Inu"
+  },
+  {
+    "id": "solana",
+    "symbol": "sol",
+    "name": "Solana"
+  },
+  {
+    "id": "stellar",
+    "symbol": "xlm",
+    "name": "Stellar"
+  },
+  {
+    "id": "stellar-lumens",
+    "symbol": "xlm",
+    "name": "Stellar Lumens"
+  },
+  {
+    "id": "terra-luna",
+    "symbol": "luna",
+    "name": "Terra"
+  },
+  {
+    "id": "tezos",
+    "symbol": "xtz",
+    "name": "Tezos"
+  },
+  {
+    "id": "the-graph",
+    "symbol": "grt",
+    "name": "The Graph"
+  },
+  {
+    "id": "theta-fuel",
+    "symbol": "tfuel",
+    "name": "Theta Fuel"
+  },
+  {
+    "id": "theta-token",
+    "symbol": "theta",
+    "name": "Theta Network"
+  },
+  {
+    "id": "tron",
+    "symbol": "trx",
+    "name": "TRON"
+  },
+  {
+    "id": "tether",
+    "symbol": "usdt",
+    "name": "Tether"
+  },
+  {
+    "id": "usd-coin",
+    "symbol": "usdc",
+    "name": "USD Coin"
+  },
+  {
+    "id": "vechain",
+    "symbol": "vet",
+    "name": "VeChain"
+  },
+  {
+    "id": "wrapped-bitcoin",
+    "symbol": "wbtc",
+    "name": "Wrapped Bitcoin"
+  },
+  {
+    "id": "xrp",
+    "symbol": "xrp",
+    "name": "XRP"
+  }
+]
