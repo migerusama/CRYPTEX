@@ -18,7 +18,7 @@ export class LoadingInterceptor implements HttpInterceptor {
     this.loadingService.setLoading(true);
     return next.handle(request).pipe(
       catchError(error => {
-        if (error.status === 429 ) {
+        if (error.status === 429 || error.status === 0 ) {
           return timer(10000).pipe(
             switchMap(() => {
               location.reload();
