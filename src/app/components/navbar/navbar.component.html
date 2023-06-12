@@ -8,19 +8,59 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/market">Market</a>
+                    <a class="nav-link" routerLink="/market">{{'Market' | translate}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/contact">Contact Us</a>
+                    <a class="nav-link" routerLink="/contact">{{'Contact Us' | translate}}</a>
                 </li>
             </ul>
-            <div>
-                <button class="btn btn-outline-warning border-0 me-2" (click)="changeLanguage()"><i class="bi bi-translate"></i></button>
-                <button class="btn btn-outline-warning me-2" routerLink="/login" *ngIf="!login">Log In</button>
-                <button class="btn btn-warning btn-outline-dark" routerLink="/register" *ngIf="!login">Register</button>
-                <button class="btn btn-outline-warning me-2" routerLink="/profile" *ngIf="login"><i class="bi bi-person"></i></button>
-                <button class="btn btn-outline-warning" (click)="logout()" *ngIf="login">Log Out</button>
-            </div>
+            <ul class="navbar-nav text-end me-auto mb-2 mb-lg-0 flex-auto justify-content-end">
+                <li class="nav-item mb-2 mb-md-0">
+                    <button class="btn btn-outline-warning border-0 me-2 d-none d-md-block" (click)="changeLanguage()">
+                        <i class="bi bi-translate"></i>
+                    </button>
+                    <button class="btn btn-outline-warning border-0 me-2 d-block d-md-none" (click)="changeLanguage()">
+                        <i class="bi bi-translate"></i> {{'Change language' | translate}}
+                    </button>
+                </li>
+                <li class="nav-item ">
+                    <button class="btn btn-outline-warning me-2 w-100" routerLink="/login" *ngIf="!login">
+                        {{'Log In' | translate}}
+                    </button>
+                </li>
+                <li class="nav-item my-1 my-md-0 ms-md-2">
+                    <button class="btn btn-warning btn-outline-dark w-100" routerLink="/register" *ngIf="!login">
+                        {{'Register' | translate}}
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-warning me-2" routerLink="/profile" *ngIf="login">
+                        <i class="bi bi-person"></i>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-warning" (click)="logout()" *ngIf="login">
+                        {{'Log Out' | translate}}
+                    </button>
+                </li>
+            </ul>
+            <!-- <div class="row">
+                <button class="btn btn-outline-warning border-0 me-2 col-2" (click)="changeLanguage()">
+                    <i class="bi bi-translate"></i>
+                </button>
+                <button class="btn btn-outline-warning me-2 col" routerLink="/login" *ngIf="!login">
+                    {{'Log In' | translate}}
+                </button>
+                <button class="btn btn-warning btn-outline-dark col" routerLink="/register" *ngIf="!login">
+                    {{'Register' | translate}}
+                </button>
+                <button class="btn btn-outline-warning me-2" routerLink="/profile" *ngIf="login">
+                    <i class="bi bi-person"></i>
+                </button>
+                <button class="btn btn-outline-warning" (click)="logout()" *ngIf="login">
+                    {{'Log Out' | translate}}
+                </button>
+            </div> -->
         </div>
     </div>
 </nav>

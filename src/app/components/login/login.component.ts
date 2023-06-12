@@ -29,26 +29,30 @@ export class LoginComponent {
         this.router.navigate(['/profile'])
       })
       .catch(error => {
-        console.error(error);
-        const errorCode: string = error.code || error.message;
-        const errorMessage: string = authErrorMessages[errorCode] || authErrorMessages.default;
-        this.toastrSrv.error(errorMessage, 'Error', {
-          positionClass: 'toast-bottom-right',
-        });
+        if (!this.toastrSrv.currentlyActive) {
+          const errorCode: string = error.code || error.message;
+          const errorMessage: string = authErrorMessages[errorCode] || authErrorMessages.default;
+          this.toastrSrv.error(errorMessage, 'Error', {
+            positionClass: 'toast-bottom-right',
+          });
+        }
+
       })
   }
 
   loginWithGoogle() {
     this.authSrv.loginWithGoogle()
       .then(res => {
-        console.log(res);
+        this.router.navigate(['/profile'])
       })
       .catch(error => {
-        const errorCode: string = error.code || error.message;
-        const errorMessage: string = authErrorMessages[errorCode] || authErrorMessages.default;
-        this.toastrSrv.error(errorMessage, 'Error', {
-          positionClass: 'toast-bottom-right',
-        });
+        if (!this.toastrSrv.currentlyActive) {
+          const errorCode: string = error.code || error.message;
+          const errorMessage: string = authErrorMessages[errorCode] || authErrorMessages.default;
+          this.toastrSrv.error(errorMessage, 'Error', {
+            positionClass: 'toast-bottom-right',
+          });
+        }
       })
   }
 }

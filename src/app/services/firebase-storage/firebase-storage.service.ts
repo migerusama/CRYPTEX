@@ -19,7 +19,7 @@ export class FirebaseStorageService {
 
   setUserDoc(user: User) {
     let nUser: any = user
-    nUser.wallet = Object.fromEntries(user.wallet)
+    // TODO: nUser.wallet = Object.fromEntries(user.wallet)
     return setDoc(doc(this.firestore, 'users', user.email), { ...user })
   }
 

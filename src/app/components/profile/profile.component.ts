@@ -5,7 +5,6 @@ import { Coin } from 'src/app/models/coins/coin.model';
 import { Currency } from 'src/app/models/enum/currency.enum';
 import { User } from 'src/app/models/user/user.model';
 import { WalletDataDisplay } from 'src/app/models/user/wallet-data-display.model';
-import { WalletItem } from 'src/app/models/user/wallet-item.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CoinService } from 'src/app/services/coin/coin.service';
 
@@ -20,6 +19,7 @@ export class ProfileComponent implements OnInit {
   coinList: Coin[] = []
   wallet: WalletDataDisplay[] = []
   btcPrice: number = 0
+  isLoading: boolean = true;
 
   constructor(
     private coinSrv: CoinService,
@@ -28,8 +28,11 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = new User()
-    this.getUserData()
+    this.isLoading = true;
+    this.authSrv.checkSession().then(data => {
+      this.getUserData()
+      this.isLoading = false;
+    })
   }
 
   getUserData() {
@@ -50,13 +53,13 @@ export class ProfileComponent implements OnInit {
     this.coinSrv.getListCoinsMarkets(Currency.USD).subscribe({
       next: (data) => {
         this.coinList = data
-        this.btcPrice = data.find((coin) => coin.name === "Bitcoin")!.current_price
+        this.btcPrice = data.find((coin) => coin.id === "bitcoin")!.current_price
       },
       error: (err) => console.error(err),
       complete: () => {
-        console.log(typeof this.user.wallet)
+        this.wallet = []
         this.user.wallet.forEach(item => {
-          const coin = this.coinList.find((coin) => coin.name === item.coin)
+          const coin = this.coinList.find((coin) => coin.id === item.coin)
           if (coin) {
             const wdd: WalletDataDisplay = {
               id: coin.id,
@@ -73,6 +76,7 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+
   calculateBalance() {
     return this.wallet.reduce((total, item) => total + item.price, 0)
   }
@@ -80,4 +84,5 @@ export class ProfileComponent implements OnInit {
   balanceToBTC() {
     return this.calculateBalance() / this.btcPrice
   }
+
 }

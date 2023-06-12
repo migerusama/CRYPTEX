@@ -18,18 +18,19 @@ export class MarketComponent implements OnInit {
   coinsBy24hChangeDesc: Coin[] = [];
   btcPrice: number = 28366
   max: number = 10
-  
+  isMaxed: boolean = false
+
   constructor(
     private coinSrv: CoinService
   ) { }
 
   ngOnInit(): void {
-    // this.coinSrv.getTrending().subscribe((data) => {
-    //   this.trendingCoins = data.coins
-    // })
-    // this.coinSrv.getSimplePrice("bitcoin", Currency.USD).subscribe((data) => {
-    //   this.btcPrice = data.price
-    // })
+    this.coinSrv.getTrending().subscribe((data) => {
+      this.trendingCoins = data.coins
+    })
+    this.coinSrv.getSimplePrice("bitcoin", Currency.USD).subscribe((data) => {
+      this.btcPrice = data.price
+    })
     this.coinSrv.getListCoinsMarkets(Currency.USD).subscribe((data) => {
       this.coinList = data
       this.coinsByPrice = this.sortByCurrentPrice([...this.coinList])
@@ -64,7 +65,11 @@ export class MarketComponent implements OnInit {
   }
 
   updateMax(): void {
-    this.max += 10
+    if (this.isMaxed) return
+    else {
+      this.max += 10
+      if (this.max === 100) this.isMaxed = true
+    }
   }
 
   sortByCurrentPrice(coins: Coin[]): Coin[] {

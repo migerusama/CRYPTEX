@@ -2,9 +2,9 @@
 <div class="container my-5 text-white">
     <div class="card bg-dark p-3">
         <div class="row">
-            <div class="col-2">
+            <div class="col-12 col-md-2">
                 <div *ngIf="user.profilePic; else defaultImg">
-                    <img src="{{user.profilePic}}" alt="" class="img-fluid rounded-circle p-1 bg-warning">
+                    <img src="{{user.profilePic}}" alt="" class="w-100 img-fluid rounded-circle p-1 bg-warning">
                 </div>
                 <ng-template #defaultImg>
                     <img src="assets/images/avatar.png" alt="" class="img-fluid rounded-circle p-1 bg-warning">
@@ -19,60 +19,94 @@
                         </a>
                     </div>
                     <div>
-                        <h4 class="text-secondary">Estimated Balance</h4>
+                        <h4 class="text-secondary">{{'Estimated Balance' | translate}}</h4>
                         <p class="fs-3">{{balanceToBTC()}} BTC
                             <span class="text-secondary">≈ {{calculateBalance()}}$</span>
                         </p>
                     </div>
                 </div>
-                <div class="col-3 row me-3">
-                    <button class="btn btn-warning">Deposit</button>
-                    <button class="btn btn-outline-warning my-2">Withdraw</button>
-                    <button class="btn btn-outline-warning">Buy Crypto</button>
+                <div class="col-12 col-md-3 row me-3">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#depositModal">
+                        {{'Deposit' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-outline-warning my-2" data-bs-toggle="modal"
+                        data-bs-target="#withdrawModal">
+                        {{'Withdraw' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                        data-bs-target="#buyModal">
+                        {{'Buy Crypto' | translate}}
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="my-5 ms-3">
-        <h2>Wallet</h2>
+    <div class="my-5 ms-3" [ngStyle]="{'height': wallet.length === 0 ? '230px' : ''}">
+        <h2>{{'Wallet' | translate}}</h2>
         <hr>
         <div class="row mb-3">
-            <div class="col-3 offset-1 ps-4">
-                <p class="fs-3">Name</p>
+            <div class="col-3 offset-1 ps-md-4">
+                <p class="fs-3">{{'Name' | translate}}</p>
             </div>
             <div class="col-3">
-                <p class="fs-3">Amount</p>
+                <p class="fs-3">{{'Amount' | translate}}</p>
             </div>
             <div class="col-3">
-                <p class="fs-3">Price</p>
+                <p class="fs-3">{{'Amount/Price' | translate}}</p>
             </div>
         </div>
         <div class="card bg-dark my-2 px-3" *ngFor="let coin of wallet">
-            <div class="row">
-                <div class="col-1">
+            <a class="row text-decoration-none text-white" routerLink="trade/{{coin.id}}">
+                <div class="col-1 d-none d-md-block">
                     <img src="{{coin.image}}" alt="" class="p-2 img-fluid">
                 </div>
-                <div class="col-3 d-flex align-items-center pt-3">
+                <div class="col-3 d-flex align-items-center pt-3 d-none d-md-block">
                     <p class="fs-4">
                         {{coin.symbol.toUpperCase()}} <span class="fs-5 text-secondary">{{coin.name}}</span>
                     </p>
                 </div>
-                <div class="col-3 d-flex align-items-center pt-3">
-                    <p class="fs-4">{{coin.amount}}</p>
+                <div class="col d-block d-md-none">
+                    <img src="{{coin.image}}" alt="" class="p-2 img-fluid">
+                    <p class="fs-5 fs-md-4">
+                        {{coin.symbol.toUpperCase()}} <span class="fs-5 text-secondary">{{coin.name}}</span>
+                    </p>
                 </div>
                 <div class="col-3 d-flex align-items-center pt-3">
-                    <p class="fs-4">{{coin.price}} $</p>
+                    <p class="fs-5 fs-md-4  ">{{coin.amount}}</p>
+                </div>
+                <div class="col-3 d-flex align-items-center pt-3">
+                    <p class="fs-5 fs-md-4">{{coin.price}} $</p>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-outline-warning mx-1 border-0 fs-5" routerLink="/trade/{{coin.id}}">
+                    <button class="btn btn-outline-warning mx-1 border-0 fs-5 d-none d-md-block" routerLink="/trade/{{coin.id}}">
                         <i class="bi bi-graph-up"></i>
                     </button>
                     <button class="btn btn-outline-warning mx-1 border-0 fs-5" routerLink="/info/{{coin.id}}">
                         <i class="bi bi-info-lg"></i>
                     </button>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
+    <ng-template #loader>
+
+    </ng-template>
 </div>
 <app-footer></app-footer>
+<div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <app-modal titulo="{{'Deposit' | translate}}" [etiquetas]="['Amount']" [user]="user" mode="add"
+        buttonText="{{'Deposit' | translate}}"></app-modal>
+</div>
+
+<div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <app-modal titulo="{{'Withdraw' | translate}}" [etiquetas]="['Amount', 'Coin']" [user]="user" mode="remove"
+        buttonText="{{'Withdraw' | translate}}"></app-modal>
+</div>
+
+<div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <app-modal titulo="{{'Buy crypto' | translate}}" [etiquetas]="['Amount', 'Coin']" [user]="user" mode="add"
+        buttonText="{{'Buy' | translate}}"></app-modal>
+</div>

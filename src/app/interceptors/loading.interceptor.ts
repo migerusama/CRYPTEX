@@ -14,13 +14,11 @@ export class LoadingInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log('caught')
     this.totalRequests++;
     this.loadingService.setLoading(true);
     return next.handle(request).pipe(
       catchError(error => {
-        console.log(error);
-        if (error.status === 429) {
+        if (error.status === 429 ) {
           return timer(10000).pipe(
             switchMap(() => {
               location.reload();

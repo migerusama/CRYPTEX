@@ -1,12 +1,28 @@
-.card:hover{
+.card:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
     border-color: yellow;
 }
-.bg-dark-grey{
+
+.bg-dark-grey {
     background-color: rgb(15, 15, 15);
 }
-.hoverable tr:not(.no-hover):hover{
-    background-color:rgb(10, 10, 10);
+
+.hoverable tr:not(.no-hover):hover {
+    background-color: rgb(10, 10, 10);
     border-color: yellow;
+}
+
+@media (min-width: 768px) {
+    .w-md-25 {
+        width: 25% !important;
+    }
+
+    .fs-md-5 {
+        font-size: 1.25rem !important;
+    }
+
+    .fs-md-6 {
+        font-size: 1rem !important;
+    }
 }

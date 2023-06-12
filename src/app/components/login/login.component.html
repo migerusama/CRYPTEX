@@ -1,49 +1,46 @@
 <app-navbar></app-navbar>
-<div class="bg-dark-grey" style="min-height: 94vh">
-    <div class="container text-white py-5">
-        <div class="row justify-content-center my-5">
-            <div class="col-6 border border-warning rounded-3 p-5 bg-black">
-                <h2 class="mb-4 text-center">LOG IN</h2>
-                <form (ngSubmit)="onSubmit()">
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email"
-                            placeholder="name@example.com" required>
-                    </div>
-                    <div>
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" [(ngModel)]="password" name="password" id="password"
-                            required>
-                        <a class="text-warning text-decoration-none">Forgot password?</a>
-                    </div>
-                    <div class="mt-3">
-                        <button class="btn btn-warning btn-outline-dark w-100 fw-bold" type="submit">LOGIN</button>
-                    </div>
-                </form>
-                <div class="row my-3">
-                    <div class="col">
-                        <hr>
-                    </div>
-                    <div class="col-1 text-center">or</div>
-                    <div class="col">
-                        <hr>
-                    </div>
+<div class="container text-white py-md-5">
+    <div class="row justify-content-center py-5">
+        <div class="col-10 col-md-6 border border-warning rounded-3 p-5 bg-black">
+            <h2 class="mb-4 text-center">{{'LOG IN' | translate}}</h2>
+            <form (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label for="email" class="form-label">{{'Email address' | translate}}</label>
+                    <input type="email" class="form-control" [(ngModel)]="email" name="email" id="email"
+                        placeholder="name@example.com" required>
                 </div>
-                <div class="row g-3">
-                    <div class="col">
-                        <button class="btn btn-dark btn-outline-warning w-100 text-center" (click)="loginWithGoogle()">
-                            <i class="bi bi-google col-1"></i> Continue with Google
-                        </button>
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-dark btn-outline-warning w-100 text-center" (click)="loginWithGoogle()">
-                            <i class="bi bi-apple col-1"></i> Continue with Apple
-                        </button>
-                    </div>
+                <div>
+                    <label for="password">{{'Password' | translate}}</label>
+                    <input type="password" class="form-control" [(ngModel)]="password" name="password" id="password"
+                        required>
+                    <a class="text-warning text-decoration-none">{{'Forgot password?' | translate}}</a>
                 </div>
                 <div class="mt-3">
-                    <a class="text-decoration-none text-warning" routerLink="../register">Create an account</a>
+                    <button class="btn btn-warning btn-outline-dark w-100 fw-bold" type="submit">
+                        {{'LOGIN' | translate}}
+                    </button>
                 </div>
+            </form>
+            <div class="row my-3">
+                <div class="col">
+                    <hr>
+                </div>
+                <div class="col-2 col-md-1 text-center">or</div>
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col">
+                    <button class="btn btn-outline-warning w-100 text-center" (click)="loginWithGoogle()">
+                        <i class="bi bi-google col-1"></i> {{'Continue with Google' | translate}}
+                    </button>
+                </div>
+            </div>
+            <div class="mt-3">
+                <a class="text-decoration-none text-warning" routerLink="../register">
+                    {{'Create an account' | translate}}
+                </a>
             </div>
         </div>
     </div>

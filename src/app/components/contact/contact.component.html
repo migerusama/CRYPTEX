@@ -1,2 +1,25 @@
 <app-navbar></app-navbar>
+<div class="container text-white my-3">
+    <h1>{{'Contact' | translate}}</h1>
+    <form (ngSubmit)="enviarFormulario()" #formulario="ngForm">
+        <div class="row">
+            <div class="col-4">
+                <label for="email">{{'Name' | translate}}</label>
+                <input type="email" class="form-control" id="email" required [(ngModel)]="email" name="email">
+            </div>
+
+            <div class="col-8">
+                <label for="email">{{'Email' | translate}}</label>
+                <input type="email" class="form-control" id="email" required [(ngModel)]="email" name="email">
+            </div>
+        </div>
+
+        <div class="my-3">
+            <label for="mensaje">{{'Message' | translate}}</label>
+            <textarea class="form-control" id="mensaje" required [(ngModel)]="mensaje" name="mensaje"
+                rows="10"></textarea>
+        </div>
+        <button type="submit" class="btn btn-warning col-3">{{'Send' | translate}}</button>
+    </form>
+</div>
 <app-footer></app-footer>

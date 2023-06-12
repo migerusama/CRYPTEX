@@ -1,15 +1,18 @@
 <app-navbar></app-navbar>
 <div class="bg-top">
-    <div class="container py-5 text-white ">
-        <div class="row mb-5 pb-5 align-items-center">
-            <div class="col-5">
+    <div class="container py-5 text-white px-4">
+        <div class="row mb-md-5 pb-5 align-items-center">
+            <div class="col col-md-5 order-2 order-md-1">
                 <div class="mb-5">
-                    <h2 class="fs-1">Buy, trade, and hold 350+ cryptocurrencies on Cryptex</h2>
+                    <h2 class="fs-1 text-center text-md-start">
+                        {{'Buy, trade, and hold 350+ cryptocurrencies on Cryptex' | translate }}
+                    </h2>
                 </div>
                 <div class="mt-4">
-                    <button class="btn btn-dark btn-outline-warning w-100 py-2" routerLink="/register">Sign Up with
-                        Email</button>
-                    <div class="row">
+                    <button class="btn btn-dark btn-outline-warning w-100 py-2" routerLink="/register">
+                        {{'Sign Up with Email' | translate }}
+                    </button>
+                    <div class="row mt-1">
                         <div class="col">
                             <hr>
                         </div>
@@ -18,61 +21,58 @@
                             <hr>
                         </div>
                     </div>
-                    <div class="row g-3">
+                    <div class="row">
                         <div class="col">
-                            <button class="btn btn-dark w-100 py-2" routerLink="/register"><i
-                                    class="bi bi-google col-1"></i> Google</button>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-dark w-100 py-2" routerLink="/register"><i
-                                    class="bi bi-apple col-1"></i> Apple</button>
+                            <button class="btn btn-dark w-100 py-2" routerLink="/register">
+                                <i class="bi bi-google col-1"></i> Google
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-12 col-md order-1">
                 <img src="assets/images/foreground-image-dark.png" alt="" class="img-fluid">
             </div>
         </div>
-        <div class="row my-5">
-            <div class="col">
+        <div class="row my-md-5 ms-3 ms-md-0">
+            <div class="col-6 col-md mb-3 mb-md-0">
                 <h3>$38 billion </h3>
-                24h trading volume on Binance exchange
+                {{'24h trading volume on Binance exchange' | translate }}
             </div>
-            <div class="col">
+            <div class="col-6 col-md">
                 <h3>350+</h3>
-                Cryptocurrencies listed
+                {{'Cryptocurrencies listed' | translate }}
             </div>
-            <div class="col">
+            <div class="col-6 col-md">
                 <h3>120 million</h3>
-                Registered users
+                {{'Registered users' | translate }}
             </div>
-            <div class="col">
+            <div class="col-6 col-md">
                 <h3>&lt;0.10%</h3>
-                Lowest transaction fees
+                {{'Lowest transaction fees' | translate }}
             </div>
         </div>
     </div>
 </div>
 <div class="bg-top">
     <div class="rounded-top-3 bg-bottom">
-        <div class="container py-5 text-white">
-            <div class="my-5 py-5">
-                <h2>Popular cryptocurrencies</h2>
+        <div class="container py-3 py-md-5 text-white">
+            <div class="my-md-5 py-md-5 text-center text-md-start">
+                <h2>{{'Popular cryptocurrencies' | translate }}</h2>
                 <table class="table bg-black text-white hoverable my-4">
                     <thead class="bg-light-black ">
                         <tr class="no-hover">
-                            <th scope="col" class="ps-3">Name</th>
-                            <th scope="col" class="text-end">Last Price</th>
-                            <th scope="col" class="text-end">24h Change</th>
-                            <th scope="col" class="text-end">Market cap</th>
+                            <th scope="col" class="ps-3">{{'Name' | translate }}</th>
+                            <th scope="col" class="text-end">{{'Last Price' | translate }}</th>
+                            <th scope="col" class="text-end">{{'24h Change' | translate }}</th>
+                            <th scope="col" class="text-end d-none d-md-table-cell">{{'Market cap' | translate }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let coin of coinList.slice(0,5); let i = index" routerLink="trade/{{coin.id}}">
                             <td class="ps-3 w-25">
-                                <div class="row ">
-                                    <img src="{{coin.image}}" alt="" class="img-fluid align-middle" style="width: 20%;">
+                                <div class="row">
+                                    <img src="{{coin.image}}" alt="" class="col col-md-3 img-fluid align-md-middle">
                                     <p class="col align-middle">{{coin.symbol.toUpperCase()}}
                                         <span class="text-secondary">{{coin.name}}</span>
                                     </p>
@@ -83,26 +83,26 @@
                                 [ngStyle]="{'color': changeColor(coin.price_change_percentage_24h)}">
                                 {{coin.price_change_percentage_24h.toFixed(2)}}%
                             </td>
-                            <td class="text-end align-middle">${{abbreviateNumber(coin.market_cap)}}</td>
+                            <td class="text-end align-middle d-none d-md-table-cell">${{abbreviateNumber(coin.market_cap)}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <hr>
-            <div class="row my-5 py-5">
+            <div class="row my-md-5 py-md-5">
                 <div class="col">
-                    <div class="mb-5 pb-4">
-                        <h3 class="mt-5">Build your crypto portfolio</h3>
-                        <p class="text-secondary">Start your first trade with these easy steps.</p>
+                    <div class="mb-md-5 pb-4">
+                        <h3 class="mt-5">{{'Build your crypto portfolio' | translate }}</h3>
+                        <p class="text-secondary">{{'Start your first trade with these easy steps.' | translate }}</p>
                     </div>
                     <div class="row my-4">
                         <div class="col-2">
                             <img src="assets/images/verify.png" alt="" class="img-fluid">
                         </div>
                         <div class="col">
-                            <h5>Verify your identity</h5>
+                            <h5>{{'Verify your identity' | translate }}</h5>
                             <p class="text-secondary">
-                                Complete the identity verification process to secure your account and transactions.
+                                {{'Complete the identity verification process to secure your account and transactions.' | translate }}
                             </p>
                         </div>
                     </div>
@@ -111,10 +111,9 @@
                             <img src="assets/images/fund.png" alt="" class="img-fluid">
                         </div>
                         <div class="col">
-                            <h5>Fund your account</h5>
+                            <h5>{{'Fund your account' | translate }}</h5>
                             <p class="text-secondary">
-                                Add funds to your crypto account to start trading crypto.
-                                You can add funds with a variety of payment methods.
+                                {{'Add funds to your crypto account to start trading crypto. You can add funds with a variety of payment methods.' | translate }}
                             </p>
                         </div>
                     </div>
@@ -123,108 +122,110 @@
                             <img src="assets/images/buy-sell.png" alt="" class="img-fluid">
                         </div>
                         <div class="col">
-                            <h5>Start trading</h5>
+                            <h5>{{'Start trading' | translate }}</h5>
                             <p class="text-secondary">
-                                You're good to go! Buy/sell crypto, set up recurring buys for your investments, and
-                                discover what Cryptex has to offer.
+                                {{"You're good to go! Buy/sell crypto, set up recurring buys for your investments, and discover what Cryptex has to offer." | translate }}
                             </p>
                         </div>
                     </div>
-                    <div>
-                        <button class="btn btn-warning w-25" routerLink="register">Get Started</button>
+                    <div class="d-flex d-md-block justify-content-center mb-5 mb-mb-0">
+                        <button class="btn btn-warning w-50 w-md-25" routerLink="register">{{'Get Started' | translate }}</button>
                     </div>
                 </div>
-                <div class="col text-center">
+                <div class="col text-center d-none d-md-block">
                     <img src="assets/images/movil1.png" alt="">
                 </div>
             </div>
             <hr>
-            <div class="my-5 py-5">
-                <h3>Explore endless possibilities with Cryptex</h3>
+            <div class="my-md-5 py-5">
+                <h3>{{'Explore endless possibilities with Cryptex' | translate }}</h3>
                 <div class="row mt-5">
-                    <div class="col">
+                    <div class="col-12 col-md my-3 my-md-0">
                         <div class="card bg-dark-grey py-3 h-100" style="height: 600px;">
                             <div class="d-flex flex-column justify-content-between">
                                 <img src="assets/images/nfts-no-bg.png" class="card-img-top" alt="...">
                                 <br><br><br><br>
                                 <div class="card-body mt-4">
-                                    <h4 class="card-title fs-2">Dive into the world of NFTs</h4>
+                                    <h4 class="card-title fs-2">{{'Dive into the world of NFTs' | translate }}</h4>
                                     <p class="card-text">
-                                        Open rare Mystery Boxes, explore IGOs, Fan Tokens, and more with Cryptex NFT
+                                        {{'Open rare Mystery Boxes, explore IGOs, Fan Tokens, and more with Cryptex NFT' | translate }}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col" style="height: 600px;">
+                    <div class="col-12 col-md my-3 my-md-0" style="height: 600px;">
                         <div class="card bg-dark-grey py-3 h-100">
-                            <div class="card-body">
-                                <h4 class="card-title fs-2">Grow your business with Cryptex Pay</h4>
+                            <div class="card-body order-3 order-md-1">
+                                <h4 class="card-title fs-2">{{'Grow your business with Cryptex Pay' | translate }}</h4>
                                 <p class="card-text">
-                                    Reach more customers as you pay and get paid in crypto with our borderless payment
-                                    technology on Cryptex Pay & Cryptex Marketplace
+                                    {{'Reach more customers as you pay and get paid in crypto with our borderless payment technology on Cryptex Pay & Cryptex Marketplace' | translate }}
                                 </p>
                             </div>
-                            <img src="assets/images/cryptex-pay-no-bg.png" class="card-img-bottom" alt="...">
+                            <div class="order-2">
+                                <br><br><br><br>
+                            </div>
+                            <img src="assets/images/cryptex-pay-no-bg.png" class="card-img-bottom order-1" alt="...">
                         </div>
                     </div>
-                    <div class="col" style="height: 600px;">
+                    <div class="col-12 col-md my-3 my-md-0" style="height: 600px;">
                         <div class="card bg-dark-grey py-3 h-100 ">
                             <img src="assets/images/cryptex-earn-no-bg.png" class="card-img-top" alt="...">
                             <br><br><br><br><br>
                             <div class="card-body mt-5">
-                                <h4 class="card-title fs-2">Cryptex Earn</h4>
-                                <p class="card-text ">Hold your crypto funds and start earning.</p>
+                                <h4 class="card-title fs-2">{{'Cryptex Earn' | translate }}</h4>
+                                <p class="card-text ">{{'Hold your crypto funds and start earning.' | translate }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-warning w-25 mt-4">Explore Now</button>
+                <div class="d-flex d-md-block justify-content-center mb-5 mb-mb-0 col-8 col-md-4 mx-auto mx-md-0">
+                    <button class="btn btn-warning mt-4 fs-3 w-100">{{'Explore Now' | translate }}</button>
+                </div>
             </div>
             <hr>
-            <div class="my-5 py-5">
-                <h2>Need help?</h2>
+            <div class="my-md-5 py-3 py-md-5">
+                <h2 class="text-center text-md-start">{{'Need help?' | translate }}</h2>
                 <div class="row">
-                    <div class="col row my-4">
+                    <div class="col-12 col-md row mt-3 my-md-4">
                         <div class="col-2">
                             <img src="assets/images/verify.png" alt="" class="img-fluid">
                         </div>
                         <div class="col">
-                            <h5>24/7 Chat Support</h5>
+                            <h5>24/7 {{'Chat Support' | translate }}</h5>
                             <p class="text-secondary">
-                                Get 24/7 chat support with our friendly customer service agents at your service
+                                {{'Get 24/7 chat support with our friendly customer service agents at your service' | translate }}
                             </p>
                         </div>
                     </div>
-                    <div class="col row my-4">
+                    <div class="col-12 col-md row my-md-4">
                         <div class="col-2">
                             <img src="assets/images/verify.png" alt="" class="img-fluid">
                         </div>
                         <div class="col">
                             <h5>FAQs</h5>
-                            <p class="text-secondary">View FAQs for detailed instructions on specific features.</p>
+                            <p class="text-secondary">{{'View FAQs for detailed instructions on specific features.' | translate }}</p>
                         </div>
                     </div>
-                    <div class="col row my-4">
+                    <div class="col-12 col-md row my-md-4">
                         <div class="col-2">
                             <img src="assets/images/verify.png" alt="" class="img-fluid">
                         </div>
                         <div class="col">
-                            <h5>Blog</h5>
-                            <p class="text-secondary">Stay up to date with the latest stories and commentary.</p>
+                            <h5>{{'Blog' | translate }}</h5>
+                            <p class="text-secondary">{{'Stay up to date with the latest stories and commentary.' | translate }}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <hr>
-
         </div>
     </div>
 </div>
-<div class="py-5 bg-dark-grey text-white">
+<div class="py-md-5 bg-dark-grey text-white">
     <div class="py-4 d-flex justify-content-center flex-wrap">
-        <h1 class="w-100 text-center mb-4">Start earning today</h1>
-        <button class="btn btn-warning" routerLink="register">Sign Up Now</button>
+        <h1 class="w-100 text-center mb-4">{{'Start earning today' | translate }}</h1>
+        <button class="btn btn-warning col-8 col-md-4 fs-5" routerLink="register">{{'Sign Up Now' | translate }}</button>
     </div>
 </div>
 <app-footer></app-footer>

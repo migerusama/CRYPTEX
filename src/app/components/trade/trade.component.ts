@@ -7,6 +7,12 @@ import * as Highcharts from 'highcharts/highstock';
 import darkUnica from 'highcharts/themes/dark-unica';
 import { Coin } from 'src/app/models/coins/coin.model';
 import { InfoCoin } from 'src/app/models/coins/info-coin.model';
+import { Firestore, doc, getFirestore, setDoc } from 'firebase/firestore';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { docData } from '@angular/fire/firestore';
+import { User } from 'src/app/models/user/user.model';
+import { WalletItem } from 'src/app/models/user/wallet-item.model';
 
 @Component({
   selector: 'app-trade',
@@ -15,14 +21,25 @@ import { InfoCoin } from 'src/app/models/coins/info-coin.model';
 })
 export class TradeComponent implements OnInit {
   coinId: string = '';
-  coin:InfoCoin | undefined
+  coin: InfoCoin | undefined
+  coinPrice: number = 0
+  user: User = new User();
+  usdAmount: number = 0
+  coinAmount: number = 0
+
 
   constructor(
     private coinSrv: CoinService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authSrv: AuthService,
+    private toastrSrv: ToastrService
   ) { }
 
   ngOnInit() {
+    this.authSrv.checkSession().then(data => {
+      console.log(this.authSrv.getCurrentUser());
+      this.getUserData()
+    })
     this.coinId = this.route.snapshot.params['coin']
     this.coinSrv.getCoinOHLC(this.coinId, Currency.USD, DaysInterval.MAX).subscribe((data) => {
       darkUnica(Highcharts);
@@ -71,13 +88,22 @@ export class TradeComponent implements OnInit {
         }]
       });
     })
-    this.coinSrv.getCoinById(this.coinId).subscribe((data)=>{
-      console.log(data);
-      this.coin = data
-
-    })
+    this.coinSrv.getCoinById(this.coinId).subscribe((data) => this.coin = data)
   }
-  
+
+  getUserData() {
+    const userAuth = this.authSrv.getCurrentUser()
+    if (userAuth && userAuth.email) {
+      this.user.email = userAuth.email
+      docData(doc(getFirestore(), 'users', this.user.email)).subscribe({
+        next: (data) => {
+          this.user = data as User
+        },
+        error: (err) => console.error(err)
+      })
+    }
+  }
+
   abbreviateNumber(num: number): string {
     const units = ["", "K", "M", "B"];
     let unitIndex = 0;
@@ -87,6 +113,5 @@ export class TradeComponent implements OnInit {
     }
     return num.toFixed(2) + units[unitIndex];
   }
-
 }
 

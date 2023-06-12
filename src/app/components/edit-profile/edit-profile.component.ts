@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User as UserAuth } from 'firebase/auth';
-import { FirebaseStorageService } from 'src/app/services/firebase/firebase-storage.service';
+import { FirebaseStorageService } from 'src/app/services/firebase-storage/firebase-storage.service';
+import { ToastrService } from 'ngx-toastr';
+import { Firestore } from '@angular/fire/firestore';
+import { doc, setDoc } from 'firebase/firestore';
+import { updateEmail } from 'firebase/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -12,74 +17,76 @@ import { FirebaseStorageService } from 'src/app/services/firebase/firebase-stora
 export class EditProfileComponent implements OnInit {
 
   user: User = new User()
+  oldEmail: string = ''
   userAuth!: UserAuth
   selectedImage: File | null = null;
-
-  username = ""
-  email = ""
-  password = ""
-  newPassword = ""
-  repeatPassword = ""
-
-  errors: { [key: string]: boolean } = {
-    username: false,
-    email: false,
-    password: false,
-    newPassword: false,
-    repeatPassword: false,
-    samePassword: false,
-    sameNewPassword: false,
-  }
+  isLoading: boolean = true
 
   constructor(
-    private auth: AuthService,
+    private router: Router,
+    private authSrv: AuthService,
+    private firestore: Firestore,
+    private toastrSrv: ToastrService,
     private fbStorageService: FirebaseStorageService,
-    // private fs: AngularFirestore,
-    // private storage: AngularFireStorage
   ) { }
 
   ngOnInit(): void {
-    this.userAuth = this.auth.getCurrentUser()!
-    if (this.userAuth && this.userAuth.email) {
-      this.fbStorageService.getDocByUser(this.userAuth.email).subscribe((data) => {
-        this.user = data as User
-      })
-    }
+    this.authSrv.checkSession().then(data => {
+      this.userAuth = this.authSrv.getCurrentUser()!
+      if (this.userAuth && this.userAuth.email) {
+        this.fbStorageService.getDocByUser(this.userAuth.email).subscribe((data) => {
+          this.user = data as User
+          this.oldEmail = this.user.email
+        })
+      }
+      this.isLoading = false;
+    })
   }
 
   onSubmit() {
-    this.errors["username"] = this.username === ""
-    this.errors["email"] = this.email === ""
-    this.errors["password"] = this.password === ""
-    this.errors["newPassword"] = this.newPassword === ""
-    this.errors["repeatPassword"] = this.repeatPassword === ""
-    this.errors["samePassword"] = this.newPassword !== this.repeatPassword
-    this.errors["sameNewPassword"] = this.password === this.newPassword
-    // if (this.selectedImage) {
-    //   const filePath = `images/${this.userAuth.uid}`;
-    //   const fileRef = this.storage.ref(filePath);
-    //   const task = this.storage.upload(filePath, this.selectedImage);
-    //   task.snapshotChanges().pipe(
-    //     finalize(() => {
-    //       fileRef.getDownloadURL().subscribe(url => {
-    //         console.log('URL de descarga:', url);
-    //         // Aquí puedes realizar acciones adicionales con la URL, como guardarla en una base de datos
-    //         const userDoc = this.fs.collection('users').doc(this.userAuth.uid);
-    //         userDoc.set({ imageUrl: url }, { merge: true })
-    //           .then(() => {
-    //             console.log('URL de descarga guardada en Firestore');
-    //           })
-    //           .catch(error => {
-    //             console.error('Error al guardar la URL de descarga en Firestore', error);
-    //           });
-    //       });
-    //     })
-    //   ).subscribe();
-    // }
+    if (this.isValid()) {
+      if (this.user.email != this.oldEmail)
+        updateEmail(this.userAuth, this.user.email)
+          .then()
+          .catch(error => {
+            this.showErrorToast('Internal error')
+          })
+      setDoc(doc(this.firestore, 'users', this.user.email), { ...this.user })
+        .then(res => {
+          if (!this.toastrSrv.currentlyActive)
+            this.toastrSrv.success('Updated correctly', 'Error', {
+              positionClass: 'toast-bottom-right',
+              timeOut: 3000
+            });
+          this.router.navigate(['/profile'])
+        })
+        .catch(error => {
+          this.showErrorToast('Internal error')
+        })
+    }
   }
 
-  onFileSelected(event: any) {
-    this.selectedImage = event.target.files[0];
+  isValid(): boolean {
+    const patronEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!this.user.username || !this.user.email) {
+      this.showErrorToast('Ambos campos deben estar rellenos')
+      return false
+    }
+
+    if (!patronEmail.test(this.user.email)) {
+      this.showErrorToast('Invalid email')
+      return false
+    }
+
+    return true
   }
 
+  private showErrorToast(msj: string) {
+    if (!this.toastrSrv.currentlyActive)
+      this.toastrSrv.error(msj, 'Error', {
+        positionClass: 'toast-bottom-right',
+        timeOut: 3000
+      });
+  }
 } 

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Auth } from '@angular/fire/auth';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,6 @@ export class NavbarComponent implements OnInit {
   login: boolean = false
 
   constructor(
-    private auth: Auth,
     private router: Router,
     private authSrv: AuthService,
     private toastrSrv: ToastrService,
@@ -24,7 +24,11 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.login = !!this.auth.currentUser
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      this.authSrv.setCurrentUser(user!)
+      this.login = !!this.authSrv.getCurrentUser()
+    });
   }
 
   logout() {
@@ -33,11 +37,13 @@ export class NavbarComponent implements OnInit {
         this.router.navigate([''])
       })
       .catch(error => {
-        const errorCode: string = error.code || error.message;
-        const errorMessage: string = authErrorMessages[errorCode] || authErrorMessages.default;
-        this.toastrSrv.error(errorMessage, 'Error', {
-          positionClass: 'toast-bottom-right',
-        });
+        if (!this.toastrSrv.currentlyActive) {
+          const errorCode: string = error.code || error.message;
+          const errorMessage: string = authErrorMessages[errorCode] || authErrorMessages.default;
+          this.toastrSrv.error(errorMessage, 'Error', {
+            positionClass: 'toast-bottom-right',
+          });
+        }
       })
   }
 

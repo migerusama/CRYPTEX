@@ -1,0 +1,30 @@
+<div class="modal-dialog text-white" role="document">
+    <div class="modal-content bg-dark">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ titulo }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row">
+            <div *ngFor="let label of etiquetas" class="form-group col">
+                <div *ngIf="label">
+                    <label for="input{{ label }}">{{ label | translate }}</label>
+                    <input *ngIf="label != 'Coin'" type="number" class="form-control" id="input{{ label }}"
+                        [(ngModel)]="amount" name="input{{ label }}" min="0" />
+                    <select class="form-control" id="coins" [(ngModel)]="coin" *ngIf="label == 'Coin'">
+                        <option *ngFor="let coin of selectCoinList" [value]="coin.id">
+                            {{ coin.symbol.toUpperCase() }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn border-0 btn-outline-danger" data-bs-dismiss="modal">
+                {{ "Close" | translate }}
+            </button>
+            <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal" (click)="guardar()">
+                {{ buttonText }}
+            </button>
+        </div>
+    </div>
+</div>

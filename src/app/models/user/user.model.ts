@@ -5,7 +5,7 @@ export class User {
     email: string
     password: string
     birthdate: string
-    wallet: Map<number, WalletItem>
+    wallet:WalletItem[]
     totalMoney: number
     profilePic: string
 
@@ -14,7 +14,7 @@ export class User {
         email?: string,
         password?: string,
         birthdate?: string,
-        wallet?: Map<number, WalletItem>,
+        wallet?: WalletItem[],
         totalMoney?: number,
         profilePic?: string
     ) {
@@ -22,7 +22,7 @@ export class User {
         this.email = email || ''
         this.password = password || ''
         this.birthdate = birthdate || ''
-        this.wallet = wallet || new Map<number, WalletItem>();
+        this.wallet = wallet || []
         this.totalMoney = totalMoney || 0
         this.profilePic = profilePic || ''
     }
